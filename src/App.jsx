@@ -1,11 +1,11 @@
-import './App.css';
-import AppRouter from './config/router';
+import "./App.css";
+import AppRouter from "./config/router";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <AppRouter />
+        <AppRouter />
       </header>
     </div>
   );

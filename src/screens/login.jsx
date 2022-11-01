@@ -1,57 +1,67 @@
-import React from 'react';
+import React from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { loginUser } from "../config/firebasemethod";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+
+
 export default function Login() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  let nav =()=>{
-    navigate('/todo')
-  }
   let login = () => {
+    setLoader(true);
     loginUser({
       email,
       password,
     })
       .then((success) => {
-        console.log(success);
+       console.log(success);
+        setLoader(false);
+        navigate(`/admin`); 
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err); 
+        setLoader(false);
+        navigate(`/signup`); 
+        
       });
   };
   return (
-    <>
-      <h1 className='sign'>Login</h1>
+    <div className="main">
+      <h1 className="sign">LOGIN</h1>
       <Box>
         <Box>
           <TextField
-          className='inp'
+            className="inp"
             label="Email"
             variant="standard"
             onChange={(e) => setEmail(e.target.value)}
           />
         </Box>
-        <Box sx={{marginTop:" 40px",marginBottom:"40px"}}>
+        <Box sx={{ marginTop: " 40px", marginBottom: "40px" }}>
           <TextField
-          className='inp'
+            className="inp"
             label="Password"
             type="password"
-            variant="standard"
+            variant= "standard"
             onChange={(e) => setPassword(e.target.value)}
           />
         </Box>
-        <Box>
-          <Button sx={{marginLeft:"50px"}} onMouseEnter={nav} onClick={login} variant="contained">
-            Login
+        <Box className="press">
+          <Button
+            sx={{ marginRight: "300px" }}
+            onClick={login}
+            variant="contained"
+            className="high"
+            disabled={loader}
+          >
+            {loader ? <CircularProgress className="spin" /> : "Login"}
           </Button>
         </Box>
       </Box>
-    </>
+    </div>
   );
 }
-
-
-
