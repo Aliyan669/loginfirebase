@@ -10,7 +10,7 @@ import Input from "../componenets/input";
 import { Grid, Box, Button } from "@mui/material";
 import DropDown from "../componenets/dropdown";
 import "../App.css";
-import Birth from "./birth";
+// import Birth from "./birth";
 
 function Todo() {
   const params = useParams();
@@ -24,33 +24,30 @@ function Todo() {
     setMain({ ...main });
     console.log(main);
   };
-
-   useEffect(() => {
-    checkUser()
-      .then((res) => {
-        console.log(res);
-        if (params.id == res) {
-          // setUserId(res);
-        } else {
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  //  useEffect(() => {
+  //   checkUser()
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (params.id == res) {
+  //         // setUserId(res);
+  //       } else {
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 let  nav =()=> {
   navigate('/login')
 }
   let valueAdd = () => {
-    sendData( 
-      main , `student/`
-    )
-      .then((success) => {
-        console.log(success);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    sendData({
+      Student: main,
+    },
+      `students/`)
+      .then((result=> { console.log(result) }))
+      .catch((err => { console.log(err) }))
   };
   return (
     <div className="App">

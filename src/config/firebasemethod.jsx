@@ -91,7 +91,7 @@ let checkUser = () => {
   
       obj.id = push(addRef).key ;
   
-      postListRef = ref(database, ` ${nodeName}`);
+      postListRef = ref(database, ` ${nodeName}/${obj.id}`);
     }
   set(postListRef,obj)
   .then((res)=>{
@@ -102,32 +102,28 @@ let checkUser = () => {
   })
   })
 }
-
-  let getData= (nodeName,id) =>{
-  let reference = ref(database ,`${nodeName}/${id ? id : ""}`);
-return new Promise((resolve,reject)=>{
-  onValue(
-    reference,
-    (snapshot) =>{
-      if(snapshot.exists()){
-        let data = snapshot.val()
-        clg
-        // if(id){
-        //   resolve(data)
-        // }else{
-
-        // }
-      }else{
-        // no data found
-      }
-    },
-    {
-      onlyOnce : false ,
+let getData = (nodeName, id) => {
+  let refernece = ref(database, `${nodeName}/${id ? id : ""}`);
+  return new Promise((resolve, reject) => {
+    onValue(refernece,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          let data = snapshot.val();
+          // resolve(data)
+          if (id) {
+            resolve(data)
+          } else {
+            let arr = Object.values(data)
+            resolve(arr)
+          }
+        } else {
+          reject("No Data Found")
+        }
+      }, {
+      onlyOnce: false
     }
-  )
-})
-
-
-}
+    );
+  });
+};
 
 export { signUpUser, loginUser, checkUser , sendData ,getData };
