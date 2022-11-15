@@ -7,7 +7,9 @@ import {
 } from "firebase/auth";
 import { getDatabase, ref, set, onValue ,push } from "firebase/database";
 const auth = getAuth(app);
+
 const database = getDatabase(app);
+
 let signUpUser = (obj) => {
   let { email, password, userName, contact } = obj;
   return new Promise((resolve, reject) => {
@@ -102,8 +104,9 @@ let checkUser = () => {
   })
   })
 }
-let getData = (nodeName, id) => {
+ let getData = (nodeName, id) => {
   let refernece = ref(database, `${nodeName}/${id ? id : ""}`);
+  
   return new Promise((resolve, reject) => {
     onValue(refernece,
       (snapshot) => {
@@ -125,5 +128,20 @@ let getData = (nodeName, id) => {
     );
   });
 };
+// let getData = (nodeName) => {
+  
+//   return new Promise((resolve, reject) => {
+
+//     const starCountRef = ref(database, `${nodeName}/`);
+
+//     onValue(starCountRef, (snapshot) => {
+
+//       // const data = Object.values(snapshot.val());
+
+//      resolve(snapshot.val())
+
+//     })
+//   })
+// }
 
 export { signUpUser, loginUser, checkUser , sendData ,getData };

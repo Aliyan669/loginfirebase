@@ -1,49 +1,51 @@
 import React, { useEffect, useState } from 'react'
-import { CircularProgress, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { CircularProgress, Container, Grid,  Typography } from '@mui/material';
 import { getData } from '../../config/firebasemethod';
-
+import Paper from '@mui/material/Paper';
+// import Box from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
+import { Box } from '@mui/system';
 export default function Students() {
-    let [module, setModule] = useState({});
-    let [stdData, setStdData] = useState([])
-    let sendStdData = () => {
-        console.log(module)
-
-        getData(`studentsRecord/`)
+    let [main, setmain] = useState({});
+    let [Data, setData] = useState([]);
+    
+    let sendData = () => {
+        // console.log(main)
+        getData('students')
             .then((res) => {
-                setStdData(res)
+                setData(res)
                 console.log(res)
             })
             .catch((err) => {
-                alert(err)
+                console.log(err)
             })
     }
-    useEffect(() => { sendStdData() }, [])
+    
+    useEffect(() => { 
+        sendData() 
+    }, [])
     return (
-        <>
-            <Container sx={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", backgroundColor: "white", padding: "15px", borderRadius: "5px", width: { xs: "100%", md: "100%" }}}>
+        <div className='App'>
+            <header className="App-header">
+            <div className="student">
+            <div className="why">
+          <h1 className="couhead"> Student Data </h1>
+          </div>
+          <Box className="register2">
                 <Grid container spacing={2}>
-
-                    <Grid item xs={12} sm={12} md={12}>
-                        <Typography variant='h5' sx={{ fontWeight: "bold" }}>Students Record</Typography>
-                    </Grid>
-
-
+          
                     <Grid>
-
-                        <TableContainer component={Paper}>
+                        <TableContainer className='table' component={Paper}>
                             <Table sx={{minWidth:650}} size="small" aria-label="a dense table">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Full Name</TableCell>
-                                        <TableCell >Father</TableCell>
+                                        <TableCell >Father Name</TableCell>
                                         <TableCell >Contact</TableCell>
                                         <TableCell >Course</TableCell>
                                         <TableCell >Section</TableCell>
@@ -51,32 +53,30 @@ export default function Students() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {stdData.length > 0 ? stdData.map((row,i) => (
-                                        <TableRow
-                                            key={i}
-                                            
-                                        >
-                                            <TableCell component="th" scope="row">
-                                                {`${row.Student?.firstName} ${row.Student?.lastName}`}
+                                    {Data.length > 0 ? Data.map((e,i) => (
+                                        <TableRow key={i}>
+                                            <TableCell>
+                                                {`${e.firstName} ${e.lastName}`}
                                             </TableCell>
-                                            <TableCell >{row.Student?.fatherName}</TableCell>
-                                            <TableCell >{row.Student?.contact}</TableCell>
-                                            <TableCell >{row.Student?.course}</TableCell>
-                                            <TableCell >{row.Student?.section}</TableCell>
-                                            <TableCell >{row.Student?.cnic}</TableCell>
+                                            <TableCell >{e.fatherName}</TableCell>
+                                            <TableCell >{e.contact}</TableCell>
+
+                                            <TableCell >{e.course}</TableCell>
+
+                                            <TableCell >{e.section}</TableCell>
+                                            <TableCell >{e.cnic}</TableCell>
                                         </TableRow>
                                     )) :(
                                         <TableRow>
-                                            <TableCell ><CircularProgress /></TableCell>
-                                            <TableCell ><CircularProgress /></TableCell>
-                                            <TableCell ><CircularProgress /></TableCell>
-                                            <TableCell ><CircularProgress /></TableCell>
-                                            <TableCell ><CircularProgress /></TableCell>
-                                            <TableCell ><CircularProgress /></TableCell>
+                                            <TableCell ></TableCell>
+                                            <TableCell ></TableCell>
+                                            <TableCell ></TableCell>
+                                            <TableCell ></TableCell>
+                                            <TableCell ></TableCell>
+                                            <TableCell ></TableCell>
                                         </TableRow>
 
                                     )
-
                                     }
                                 </TableBody>
                             </Table>
@@ -84,6 +84,9 @@ export default function Students() {
 
                     </Grid>
                 </Grid>
-            </Container></>
+                </Box>
+                </div>
+                </header>
+           </div>
     )
 }

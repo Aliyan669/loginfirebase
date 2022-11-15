@@ -1,48 +1,42 @@
-import React from 'react'
+import React from "react";
 
 import { Grid, Box, Button } from "@mui/material";
-import Input from '../../componenets/input';
-import DropDown from '../../componenets/dropdown';
+import Input from "../../componenets/input";
+import DropDown from "../../componenets/dropdown";
 import { useEffect, useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 import { checkUser, sendData } from "../../config/firebasemethod";
 
-
 export default function Course() {
-    // const params = useParams();
-    // const navigate = useNavigate();
+  // const params = useParams();
+  // const navigate = useNavigate();
 
-    const [main, setMain] = useState({});
-    let AllMain = (key, val) => {
-      main[key] = val;
-      setMain({ ...main });
-      console.log(main);
-    };
+  const [main, setMain] = useState({});
+  let AllMain = (key, val) => {
+    main[key] = val;
+    setMain({ ...main });
+    console.log(main);
+  };
 
-        let valueAdd = () => {
-          sendData( 
-            main , `AdminCourses/`
-          )
-            .then((success) => {
-              console.log(success);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        };  
+  let valueAdd = () => {
+    sendData(main, `courses/`)
+      .then((success) => {
+        console.log(success);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="App">
       <header className="App-header">
         <div className="course">
           <div className="why">
-          <h1 className="couhead"> Create Courses </h1>
-         
+            <h1 className="couhead"> Create Courses </h1>
           </div>
           <Box className="register2">
             <Grid container spacing={2}>
-            
-             
               <Grid item md={4}>
                 <DropDown
                   label="Course Name"
@@ -57,7 +51,7 @@ export default function Course() {
                       fullName: "UI UX Design",
                     },
                   ]}
-                  onChange={(e) => AllMain("CourseName", e.target.value)}
+                  onChange={(e) => AllMain("courseName", e.target.value)}
                 />
               </Grid>
               <Grid item md={4}>
@@ -74,7 +68,7 @@ export default function Course() {
                       fullName: "16 Months",
                     },
                   ]}
-                  onChange={(e) => AllMain("Section", e.target.value)}
+                  onChange={(e) => AllMain("section", e.target.value)}
                 />
               </Grid>
               <Grid item md={4}>
@@ -82,7 +76,7 @@ export default function Course() {
                   label="Fees in Rupees"
                   value={main.Fees}
                   required={true}
-                  onChange={(e) => AllMain("Fees", e.target.value)}
+                  onChange={(e) => AllMain("fees", e.target.value)}
                 />
               </Grid>
               <Grid item md={4}>
@@ -97,20 +91,13 @@ export default function Course() {
                     {
                       id: "2",
                       fullName: "2",
-                    },{
-                        id: "3",
-                        fullName: "3",
-                      },
+                    },
+                    {
+                      id: "3",
+                      fullName: "3",
+                    },
                   ]}
-                  onChange={(e) => AllMain("QuizNo", e.target.value)}
-                />
-              </Grid>
-              <Grid item md={4}>
-                <Input
-                  label="FormOpen:Y/N"
-                  value={main.formOpen}
-                  required={true}
-                  onChange={(e) => AllMain("formOpen ", e.target.value)}
+                  onChange={(e) => AllMain("quizNo", e.target.value)}
                 />
               </Grid>
               <Grid item md={4}>
@@ -118,7 +105,7 @@ export default function Course() {
                   label="Trainer Id"
                   value={main.TrainerId}
                   required={true}
-                  onChange={(e) => AllMain("TrainerId ", e.target.value)}
+                  onChange={(e) => AllMain("trainerId ", e.target.value)}
                 />
               </Grid>
               <Grid item md={4}>
@@ -126,7 +113,7 @@ export default function Course() {
                   label="Assistant Trainer"
                   value={main.AssistantTrainer}
                   required={true}
-                  onChange={(e) => AllMain("AssistantTrainer", e.target.value)}
+                  onChange={(e) => AllMain("assistantTrainer", e.target.value)}
                 />
               </Grid>
             </Grid>
@@ -139,5 +126,5 @@ export default function Course() {
         </div>
       </header>
     </div>
-  )
+  );
 }

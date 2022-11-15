@@ -1,12 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "../screens/login";
 import Signup from "../screens/signup";
-import Home from "../screens/home";
-import Button from "@mui/material/Button";
+// import Home from "../screens/home";
+// import Button from "@mui/material/Button";
 import "../App.css";
-import Todo from "../screens/todo";
-import Admin from "../screens/admin";
 import ResponsiveDrawer from "../screens/admin";
+import Registration from "../screens/registration";
 function AppRouter() {
   return (
     <>
@@ -27,7 +26,7 @@ function AppRouter() {
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
           {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/" element={<Todo />} />
+          <Route path="/" element={<Registration />} />
           {/* <Route path="*" element={<Notfound/>} /> */}
           <Route path="admin/*" element={<ResponsiveDrawer/>} />
 
